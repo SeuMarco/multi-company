@@ -2,26 +2,33 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestModule(TransactionCase):
+class TestModule(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         # Set tracking_disable in context
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.test_company = cls.env.ref("res_company_active.company_test")
-        cls.main_company = cls.env.ref("base.main_company")
-        cls.demo_user = cls.env.ref("base.user_demo")
+        cls.test_company = cls._create_company(name="Other company")
+        cls.main_company = cls.env.company
+        cls.demo_user = cls._create_new_internal_user(
+            login="internal.user@test.odoo.com",
+            company_ids=[
+                Command.link(cls.main_company.id),
+                Command.link(cls.test_company.id),
+            ],
+        )
 
     # Test Section
     def test_01_disable_without_user(self):
         self.test_company.active = False
 
     def test_02_disable_with_user(self):
-        self.demo_user.company_id = self.test_company
+        self.demo_user.company_id = self.test_company.id
         with self.assertRaises(ValidationError):
             self.test_company.active = False
 

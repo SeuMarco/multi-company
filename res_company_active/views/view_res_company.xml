@@ -17,9 +17,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     invisible="active"
                 />
             </field>
-            <field name="parent_id" position="after">
-                <field name="active" invisible="1" />
-            </field>
         </field>
     </record>
 </odoo>
