@@ -19,6 +19,16 @@ msgid "Company"
 msgstr ""
 
 #. module: calendar_event_type_multi_company
+#: model:ir.model.fields,field_description:calendar_event_type_multi_company.field_calendar_event_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: calendar_event_type_multi_company
 #: model:ir.model,name:calendar_event_type_multi_company.model_calendar_event_type
 msgid "Event Meeting Type"
+msgstr ""
+
+#. module: calendar_event_type_multi_company
+#: model:ir.model.fields,field_description:calendar_event_type_multi_company.field_calendar_event_type__id
+msgid "ID"
 msgstr ""
